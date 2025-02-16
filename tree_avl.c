@@ -82,7 +82,8 @@ struct Node* insert(struct Node* node, int data) {
     }
 
     // Step 2: Update the height of this ancestor node
-    node->height = 1 + max(height(node->left), height(node->right));
+    // node->height = 1 + max(height(node->left), height(node->right));
+    node->height = node->height + 1;
 
     // Step 3: Get the balance factor and perform rotations if necessary
     int balance = getBalance(node);
@@ -111,7 +112,25 @@ struct Node* insert(struct Node* node, int data) {
     return node;
 }
 
-// Function to perform an in-order traversal of the AVL tree
+// Correct postorder traversal (Left → Right → Root)
+void postOrder(struct Node* root) {
+    if (root != NULL) {
+        postOrder(root->left);
+        postOrder(root->right);
+        printf("%d ", root->data);
+    }
+}
+
+// Correct preorder traversal (Root → Left → Right)
+void preOrder(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
+// Correct inorder traversal (Left → Root → Right)
 void inOrder(struct Node* root) {
     if (root != NULL) {
         inOrder(root->left);
@@ -119,6 +138,8 @@ void inOrder(struct Node* root) {
         inOrder(root->right);
     }
 }
+
+
 
 // Driver code
 int main() {
